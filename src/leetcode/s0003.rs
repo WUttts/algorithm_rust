@@ -1,37 +1,28 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 ///无重复最长子串
 pub fn length_of_longest_substring(s: String) -> i32 {
-    if s.len() < 2 {
-        return s.len() as i32;
+    if s.is_empty() {
+        return 0;
     }
-    let s = s.chars().collect::<Vec<_>>();
-    let mut window = HashMap::new();
 
-    // let mut max = 0;
-    let (mut left, mut right) = (0, 0);
+    let mut left = 0;
+    let mut cur_len = 0;
+    let mut res = 0;
+    let mut set = HashSet::new();
+    let bytes = s.as_bytes();
 
-    while right < s.len() {
-        window
-            .entry(s[right])
-            .and_modify(|cnt| *cnt += 1)
-            .or_insert(1);
-        if window[&s[right]] > 1 {
+    for i in 0..s.len() {
+        cur_len += 1;
+        while set.contains(&bytes[i]) {
+            set.remove(&bytes[left]);
             left += 1;
-            window.entry(s[right]).and_modify(|cnt| *cnt -= 1);
-            if left < right && s[left] == s[right] {
-                left += 1;
-            }
         }
-        right += 1;
+        res = res.max(cur_len);
+        set.insert(bytes[i]);
     }
-    // max = if right == s.len() {
-    //     right - left - 1
-    // } else {
-    //     right - left
-    // };
-    // max as i32
-    (right - left) as i32
+
+    res as i32
 }
 
 #[cfg(test)]
@@ -41,12 +32,32 @@ mod tests {
     #[test]
     fn test() {
         let s = String::from("abcabcbb");
-        // let s = String::from("bbbbbbbbbbbb");
-        // let s = String::from("pwwkew");
-        // let s = String::from(" ");
-        // let s = String::from("au");
-        // let s = String::from("ckilbkd");
 
         println!("{}", length_of_longest_substring(s));
+    }
+    #[test]
+    fn test_1() {
+        let s = String::from("abcabcbb");
+        assert_eq!(3, length_of_longest_substring(s));
+    }
+    #[test]
+    fn test_2() {
+        let s = String::from("bbbbbbbbbbbb");
+        assert_eq!(1, length_of_longest_substring(s));
+    }
+    #[test]
+    fn test_3() {
+        let s = String::from("pwwkew");
+        assert_eq!(3, length_of_longest_substring(s));
+    }
+    #[test]
+    fn test_4() {
+        let s = String::from(" ");
+        assert_eq!(1, length_of_longest_substring(s));
+    }
+    #[test]
+    fn test_5() {
+        let s = String::from("au");
+        assert_eq!(2, length_of_longest_substring(s));
     }
 }
