@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 ///无重复最长子串
 pub fn length_of_longest_substring(s: String) -> i32 {
@@ -6,23 +6,35 @@ pub fn length_of_longest_substring(s: String) -> i32 {
         return 0;
     }
 
-    let mut left = 0;
-    let mut cur_len = 0;
-    let mut res = 0;
-    let mut set = HashSet::new();
     let bytes = s.as_bytes();
 
+    //记录起始位置和窗口长度。
+    let mut left = 0;
+    let mut cur_len = 0;
+    // 记录最大长度
+    let mut res = 0;
+    //用于判断是否包含重复字符串
+    let mut set = HashSet::new();
+    
     for i in 0..s.len() {
+        //每遍历一个字符串，窗口长度 +1
         cur_len += 1;
+        //如果出现重复字符，则需要缩小窗口
         while set.contains(&bytes[i]) {
+            //删掉最左边的值，缩小窗口
             set.remove(&bytes[left]);
+            //起始位置 +1
             left += 1;
+            //窗口长度 -1
+            cur_len -= 1;
         }
+        //更新当前的最长窗口
         res = res.max(cur_len);
+
         set.insert(bytes[i]);
     }
 
-    res as i32
+    res
 }
 
 #[cfg(test)]

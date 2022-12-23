@@ -25,6 +25,7 @@ pub mod mystruct {
 pub mod leetcode {
     pub mod s0002;
     pub mod s0003;
+    pub mod s0004;
     pub mod s0006;
     pub mod s0007;
     pub mod s0008;
@@ -36,6 +37,7 @@ pub mod leetcode {
     pub mod s0054;
     pub mod s0076;
     pub mod s0151;
+    pub mod s0242;
     pub mod s0303;
     pub mod s0304;
     pub mod s0370;
