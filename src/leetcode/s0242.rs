@@ -10,8 +10,8 @@ pub fn is_anagram(s: String, t: String) -> bool {
     let mut alpha = [0; 26];
 
     for i in 0..s.len() {
-        alpha[(s[i] - 97) as usize] += 1;
-        alpha[(t[i] - 97) as usize] -= 1;
+        alpha[(s[i] - b'a') as usize] += 1;
+        alpha[(t[i] - b'a') as usize] -= 1;
     }
 
     for i in alpha {

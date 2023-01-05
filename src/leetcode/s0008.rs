@@ -1,5 +1,4 @@
 ///## https://leetcode.cn/problems/string-to-integer-atoi/
-
 pub fn my_atoi(s: String) -> i32 {
     let mut state = State::Start;
     let mut negtive = false;

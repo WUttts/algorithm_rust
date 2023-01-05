@@ -14,13 +14,10 @@ pub fn reverse(x: i32) -> i32 {
         let tmp = x % 10;
         //判断值过大越界的情况
         if res > max_flag || (res == max_flag && tmp > 7) {
-            println!("1");
             return 0;
         }
         //判断值过小越界的情况
         if res < min_flag || (res == min_flag && tmp < -8) {
-            println!("2");
-
             return 0;
         }
         res = res * 10 + tmp;

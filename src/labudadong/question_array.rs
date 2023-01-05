@@ -256,7 +256,6 @@ pub fn difference() {
         }
         res
     }
-    
 }
 
 #[cfg(test)]
